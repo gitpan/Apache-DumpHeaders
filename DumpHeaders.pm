@@ -4,12 +4,13 @@ use Apache;
 use Apache::Constants qw(DECLINED OK);
 use vars qw($VERSION);
 
-$VERSION = "0.90";
+$VERSION = "0.92";
 
 sub handler {
   my $r = shift;
+  my $note = $r->notes("DumpHeaders");
   if ($r->dir_config("DumpHeaders_Conditional")) {
-    return DECLINED unless $r->notes("DumpHeaders");
+    return DECLINED unless $note;
   }
   if ($r->dir_config("DumpHeaders_Percent")) {
     return DECLINED unless rand(100) < $r->dir_config("DumpHeaders_Percent");
@@ -24,7 +25,8 @@ sub handler {
     warn "Failed to open $filename: $!";
     return DECLINED;
   }
-  print OUT "=======",  print OUT scalar localtime, "=======\n";
+  my $msg = ($note and $note =~ /\D/) ? $note : "";
+  print OUT "\n======= ", scalar localtime, " $msg=======\n";
   print OUT $r->as_string;
   close OUT;
   return OK;
@@ -41,16 +43,16 @@ Apache::DumpHeaders - Watch HTTP transaction via headers
 =head1 SYNOPSIS
 
  #httpd.conf or some such
- PerlLogHandler Apache::DumpHeaders
- PerlSetVar     DumpHeaders_File -
- PerlSetVar     DumpHeaders_IP "1.2.3.4 1.2.3.5"
- #PerlSetVar     DumpHeaders_Conditional 
- #PerlSetVar     DumpHeaders_Percent
+ PerlLogHandler  Apache::DumpHeaders
+ PerlSetVar      DumpHeaders_File -
+ PerlSetVar      DumpHeaders_IP "1.2.3.4 1.2.3.5"
+ #PerlSetVar     DumpHeaders_Conditional 1
+ #PerlSetVar     DumpHeaders_Percent 5
 
 =head1 DESCRIPTION
 
-This module is used to watch an HTTP transaction, looking at client and
-servers headers.
+This module is used to watch an HTTP transaction, looking at the
+client and servers headers.
 
 With Apache::ProxyPassThru configured, you are able to watch your browser
 talk to any server besides the one with this module living inside.
@@ -84,6 +86,12 @@ module have set r->notes("DumpHeaders") to a true value.
 
 If this is set, we'll only dump the specified percent of the requests.
 
+=head1 SUPPORT
+
+The latest version of this module can be found at CPAN and at
+L<http://develooper.com/code/Apache::DumpHeaders/>. Send questions and
+suggestions to the modperl mailinglist (see L<http://perl.apache.org/>
+for information) or directly to the author (see below).
 
 =head1 SEE ALSO
 
@@ -91,7 +99,7 @@ mod_perl(3), Apache(3), Apache::ProxyPassThru(3)
 
 =head1 AUTHOR
 
-Ask Bjoern Hansen <ask@valueclick.com>.
+Ask Bjoern Hansen <ask@develooper.com>.
 
 Originally by Doug MacEachern.
 

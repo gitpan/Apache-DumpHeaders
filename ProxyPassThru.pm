@@ -3,7 +3,7 @@ use strict;
 use LWP::UserAgent ();
 use Apache::Constants ':common';
 
-my $VERSION = "0.10";
+my $VERSION = "0.11";
 
 sub handler {
     my($r) = @_;
@@ -36,7 +36,7 @@ sub proxy_handler {
     $r->send_http_header();
     $r->print($res->content);
 
-    $r->notes("DumpHeaders", 1)
+    $r->notes("DumpHeaders", "proxypassthru")
       if $r->dir_config("ProxyPassThru_DumpHeaders");
 
     return OK;
@@ -72,11 +72,19 @@ This module is configured with PerlSetVar's.
 
 =head2 ProxyPassThru_DumpHeaders
 
-If this is set to a true value we'll set r->notes("DumpHeaders") to a
-true value.
+If this is set to a true value we'll set r->notes("DumpHeaders") to
+"proxypassthru" to get the request logged in the log. This is usually
+what you want.
 
 Makes it easy to have Apache::DumpHeaders only dump headers from your
 proxied requests.
+
+=head1 SUPPORT
+
+The latest version of this module can be found at CPAN and at
+L<http://develooper.com/code/Apache::DumpHeaders/>. Send questions and
+suggestions to the modperl mailinglist (see L<http://perl.apache.org/>
+for information) or directly to the author (see below).
 
 =head1 SEE ALSO
 
@@ -84,7 +92,7 @@ mod_perl(3), Apache(3), LWP::UserAgent(3)
 
 =head1 AUTHOR
 
-Ask Bjoern Hansen <ask@valueclick.com>. 
+Ask Bjoern Hansen <ask@develooper.com>. 
 
 Originally by Doug MacEachern.
 
