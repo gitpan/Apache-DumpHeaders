@@ -1,5 +1,8 @@
 Revision history for Perl extension Apache::DumpHeaders.
 
+0.90  Thu Aug 18 2000
+    - Added separator with a timestamp before each request
+
 0.20  Fri Apr 28 2000
     - Added DumpHeaders_Percent option
     - Added DumpHeaders_Conditional option

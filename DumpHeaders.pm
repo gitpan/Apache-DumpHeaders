@@ -4,7 +4,7 @@ use Apache;
 use Apache::Constants qw(DECLINED OK);
 use vars qw($VERSION);
 
-$VERSION = "0.20";
+$VERSION = "0.90";
 
 sub handler {
   my $r = shift;
@@ -24,6 +24,7 @@ sub handler {
     warn "Failed to open $filename: $!";
     return DECLINED;
   }
+  print OUT "=======",  print OUT scalar localtime, "=======\n";
   print OUT $r->as_string;
   close OUT;
   return OK;
