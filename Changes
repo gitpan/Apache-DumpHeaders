@@ -1,7 +1,14 @@
 Revision history for Perl extension Apache::DumpHeaders.
 
+0.20  Fri Apr 28 2000
+    - Added DumpHeaders_Percent option
+    - Added DumpHeaders_Conditional option
+    - Added "use strict"
+    - Included Apache::ProxyPassThru.pm (Not tested very well though)
+
 0.03  Tue Jan 18 2000
-    - release again to get PAUSE to pick it up.
+    - Typo in the documentation. Thanks to Stas Bekman
+      <sbekman@stason.org>
 
 0.02  Thu Jan  6 2000
     - original version; based on Doug's module from the Contrib
