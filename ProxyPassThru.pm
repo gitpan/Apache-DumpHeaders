@@ -24,11 +24,15 @@ sub proxy_handler {
 	$request->header($key,$val);
     }
 
-    my $res = (new LWP::UserAgent)->request($request);
+    if ($r->method eq 'POST') {
+       $request->content(scalar $r->content);
+    }
+
+    my $res = (new LWP::UserAgent)->simple_request($request);
     $r->content_type($res->header('Content-type'));
     #feed reponse back into our request_rec*
     $r->status($res->code);
-    $r->status_line(join " ", $res->code, $res->message);
+    $r->status_line($res->status_line);
     $res->scan(sub {
 	$r->header_out(@_);
     });

@@ -4,7 +4,7 @@ use Apache;
 use Apache::Constants qw(DECLINED OK);
 use vars qw($VERSION);
 
-$VERSION = "0.92";
+$VERSION = "0.93";
 
 sub handler {
   my $r = shift;
@@ -25,7 +25,7 @@ sub handler {
     warn "Failed to open $filename: $!";
     return DECLINED;
   }
-  my $msg = ($note and $note =~ /\D/) ? $note : "";
+  my $msg = ($note and $note =~ /\D/) ? "$note " : "";
   print OUT "\n======= ", scalar localtime, " $msg=======\n";
   print OUT $r->as_string;
   close OUT;
