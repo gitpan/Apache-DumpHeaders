@@ -33,8 +33,9 @@ sub proxy_handler {
     #feed reponse back into our request_rec*
     $r->status($res->code);
     $r->status_line($res->status_line);
+    my $table = $r->headers_out;
     $res->scan(sub {
-	$r->header_out(@_);
+        $table->add(@_);
     });
 
     $r->send_http_header();

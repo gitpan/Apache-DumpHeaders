@@ -1,6 +1,10 @@
 Revision history for Perl extension Apache::DumpHeaders.
 
-0.93
+0.94  Fri Mar  8 2002
+    - [ProxyPassThru] Fix proxy when there are multiple headers with
+      the same name. (From Tatsuhiko Miyagawa <miyagawa@edge.co.jp>)
+
+0.93  Mon Aug 20 2001
     - Cosmetic fix
     - [ProxyPassThru] Bugfixes from Tatsuhiko Miyagawa <miyagawa@edge.co.jp>
       - It hangs with POST request

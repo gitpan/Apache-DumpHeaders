@@ -4,7 +4,7 @@ use Apache;
 use Apache::Constants qw(DECLINED OK);
 use vars qw($VERSION);
 
-$VERSION = "0.93";
+$VERSION = "0.94";
 
 sub handler {
   my $r = shift;
