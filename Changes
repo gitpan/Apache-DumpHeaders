@@ -1,0 +1,6 @@
+Revision history for Perl extension Apache::DumpHeaders.
+
+0.02  Thu Jan  6 2000
+    - original version; based on Doug's module from the Contrib
+      package
+
